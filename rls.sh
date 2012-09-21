@@ -31,5 +31,8 @@ rm -rf ${nm}.git
 
 
 tar cfvz $fnm $nm
+pandoc -f markdown -t html $nm/Readme.txt > rel/${nm}.html
+mv $fnm rel/
+rm -rf $nm
 
 
