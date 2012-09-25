@@ -6,13 +6,9 @@ sub all {
     sh('plib mknews.pl >> ../public/index.html');
 	redir('>>' , '../public/index.html','</body></html> ');
 
-    @labels = list('codes');
-    for $l (@labels){
-        redir('>', "../public/misc/$l.html", '<html><body>');
-        sh("plib mkmisc.pl $l");
-        sh("pandoc -f markdown -t html $l.out >> ../public/misc/$l.html");
-        redir('>>', "../public/misc/$l.html" , '</body></html>' );
-
+    
+    sh("plib mksrcindex.pl ");
+    sh("plib mktxtindex.pl ");
 
     $hm = tostr(sh('printf $HOME'));
 	rmdir('../public/misc/technotes');
@@ -23,8 +19,5 @@ sub all {
 
 	rmdir('../public/misc/cheatsheets');
 	cpdir("$hm/work/out/streams/cheatsheets.org",'../public/misc/cheatsheets');
-    }
-
-    
 }
 all();
